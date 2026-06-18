@@ -7,6 +7,7 @@ import FlashcardsLLMPlugin from "./main"
 
 export interface FlashcardsSettings {
   apiKey: string;
+  apiBaseUrl: string;
   model: string;
   inlineSeparator: string;
   multilineSeparator: string;
@@ -44,6 +45,19 @@ export class FlashcardsSettingsTab extends PluginSettingTab {
       .setValue(this.plugin.settings.apiKey)
       .onChange(async (value) => {
         this.plugin.settings.apiKey = value;
+        await this.plugin.saveSettings();
+      })
+    );
+
+    new Setting(containerEl)
+    .setName("API Base URL")
+    .setDesc("Enter a custom API base URL (leave empty for default)")
+    .addText((text) =>
+      text
+      .setPlaceholder("https://api.openai.com/v1")
+      .setValue(this.plugin.settings.apiBaseUrl)
+      .onChange(async (value) => {
+        this.plugin.settings.apiBaseUrl = value;
         await this.plugin.saveSettings();
       })
     );

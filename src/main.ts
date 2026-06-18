@@ -11,6 +11,7 @@ import { FlashcardsSettings, FlashcardsSettingsTab } from "./settings"
 
 const DEFAULT_SETTINGS: FlashcardsSettings = {
   apiKey: "",
+  apiBaseUrl: "",
   model: "gpt-4o",
   inlineSeparator: "::",
   multilineSeparator: "?",
@@ -136,7 +137,8 @@ export default class FlashcardsLLMPlugin extends Plugin {
         maxTokens,
         multiline,
 		configuration.reasoningEffort,
-        streaming
+        streaming,
+        configuration.apiBaseUrl
       )
 
       let updatedText = "";

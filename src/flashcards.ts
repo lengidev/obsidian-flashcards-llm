@@ -76,12 +76,14 @@ export async function* generateFlashcards(
 	maxTokens: number = 300,
 	multiline: boolean = false,
 	reasoningEffort: string,
-	stream: boolean = true
+	stream: boolean = true,
+	baseUrl: string = ""
 ) {
 
 	const openai = new OpenAI({
 		apiKey: apiKey,
-		dangerouslyAllowBrowser: true
+		dangerouslyAllowBrowser: true,
+		...(baseUrl && { baseURL: baseUrl })
 	});
 
 	const cleanedText = text.replace(/<!--.*-->[\n]?/g, "");
