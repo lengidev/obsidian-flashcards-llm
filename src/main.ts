@@ -11,7 +11,7 @@ import { FlashcardsSettings, FlashcardsSettingsTab } from "./settings"
 
 const DEFAULT_SETTINGS: FlashcardsSettings = {
   apiKey: "",
-  apiBaseUrl: "",
+  apiBaseUrl: "https://api.openai.com",
   model: "gpt-4o",
   inlineSeparator: "::",
   multilineSeparator: "?",
