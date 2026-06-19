@@ -75,7 +75,7 @@ export async function* generateFlashcards(
 	additionalInfo: string = "",
 	maxTokens: number = 300,
 	multiline: boolean = false,
-	reasoningEffort: string,
+	reasoningEffort: "low" | "medium" | "high",
 	stream: boolean = true,
 	baseUrl: string = ""
 ) {
@@ -109,7 +109,7 @@ the original task): ${additionalInfo}`
 		response = await openai.chat.completions.create({
 		model: model,
 		...(!isReasoning && { temperature: 0.7 }),
-		...(isReasoning && { reasoning_effort: "low" }),
+		...(isReasoning && { reasoning_effort: reasoningEffort }),
 		max_completion_tokens: maxTokens,
 		frequency_penalty: 0,
 		presence_penalty: 0,
