@@ -10,7 +10,7 @@ import { availableCompletionModels, availableChatModels, availableReasoningModel
 export class InputModal extends Modal {
   plugin: FlashcardsLLMPlugin
   configuration: FlashcardsSettings;
-  multiline: boolean;
+  multiline: boolean = false;
   keypressed: boolean;
   onSubmit: (configuration: FlashcardsSettings, multiline: boolean) => void;
 

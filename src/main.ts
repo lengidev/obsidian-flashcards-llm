@@ -1,4 +1,4 @@
-import { App, Editor, EditorPosition, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, EditorPosition, MarkdownView, MarkdownFileInfo, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { generateFlashcards } from "./flashcards";
 import { InputModal } from "./components"
 import { FlashcardsSettings, FlashcardsSettingsTab } from "./settings"
@@ -25,7 +25,7 @@ const DEFAULT_SETTINGS: FlashcardsSettings = {
 };
 
 export default class FlashcardsLLMPlugin extends Plugin {
-  settings: FlashcardsSettings;
+  settings!: FlashcardsSettings;
 
   async onload() {
     await this.loadSettings();
@@ -33,26 +33,26 @@ export default class FlashcardsLLMPlugin extends Plugin {
     this.addCommand({
       id: "generate-inline-flashcards",
       name: "Generate Inline Flashcards",
-      editorCallback: (editor: Editor, view: MarkdownView) => {
-        this.onGenerateFlashcards(editor, view, this.settings, false);
+      editorCallback: (editor: Editor, view: MarkdownView | MarkdownFileInfo) => {
+        this.onGenerateFlashcards(editor, view as MarkdownView, this.settings, false);
       },
     });
 
     this.addCommand({
       id: "generate-long-flashcards",
       name: "Generate Multiline Flashcards",
-      editorCallback: (editor: Editor, view: MarkdownView) => {
-        this.onGenerateFlashcards(editor, view, this.settings, true);
+      editorCallback: (editor: Editor, view: MarkdownView | MarkdownFileInfo) => {
+        this.onGenerateFlashcards(editor, view as MarkdownView, this.settings, true);
       },
     });
 
     this.addCommand({
       id: "generate-flashcards-interactive",
       name: "Generate flashcards with new settings",
-      editorCallback: (editor: Editor, view: MarkdownView) => {
+      editorCallback: (editor: Editor, view: MarkdownView | MarkdownFileInfo) => {
 
         new InputModal(this.app, this, (configuration: FlashcardsSettings, multiline: boolean) => {
-          this.onGenerateFlashcards(editor, view, configuration, multiline);
+          this.onGenerateFlashcards(editor, view as MarkdownView, configuration, multiline);
         }).open();
 
       },
@@ -136,7 +136,7 @@ export default class FlashcardsLLMPlugin extends Plugin {
         additionalPrompt,
         maxTokens,
         multiline,
-		configuration.reasoningEffort,
+		configuration.reasoningEffort as "low" | "medium" | "high",
         streaming,
         configuration.apiBaseUrl
       )

@@ -7,7 +7,7 @@ export function availableCompletionModels(): Array<string> {
 }
 
 export function availableReasoningModels(): Array<string> {
-  return ["o1-mini", "gpt-5.5", "gpt-5.4-mini"]
+  return ["o1-mini", "gpt-5.5", "gpt-5.4-mini", "deepseek-v4-flash", "deepseek-v4-pro"]
 }
 
 export function allAvailableModels(): Array<string> {
