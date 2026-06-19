@@ -34,7 +34,12 @@ export class InputModal extends Modal {
       .setValue(this.configuration.model)
       .onChange(async (value) => {
 		reasoningEffortSetting.setDisabled(!availableReasoningModels().includes(value));
-        this.configuration.model = value
+        this.configuration.model = value;
+		if (value.startsWith("deepseek-")) {
+			this.configuration.apiBaseUrl = "https://api.deepseek.com";
+		} else {
+			this.configuration.apiBaseUrl = "https://api.openai.com";
+		}
       })
     );
 

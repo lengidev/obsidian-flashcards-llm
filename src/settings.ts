@@ -37,27 +37,14 @@ export class FlashcardsSettingsTab extends PluginSettingTab {
     containerEl.createEl("h3", {text: "Model settings"})
 
     new Setting(containerEl)
-    .setName("OpenAI API key")
-    .setDesc("Enter your OpenAI API key")
+    .setName("API Key")
+    .setDesc("Enter your API key")
     .addText((text) =>
       text
       .setPlaceholder("API key")
       .setValue(this.plugin.settings.apiKey)
       .onChange(async (value) => {
         this.plugin.settings.apiKey = value;
-        await this.plugin.saveSettings();
-      })
-    );
-
-    new Setting(containerEl)
-    .setName("API Base URL")
-    .setDesc("Enter a custom API base URL (leave empty for default)")
-    .addText((text) =>
-      text
-      .setPlaceholder("https://api.openai.com/v1")
-      .setValue(this.plugin.settings.apiBaseUrl)
-      .onChange(async (value) => {
-        this.plugin.settings.apiBaseUrl = value;
         await this.plugin.saveSettings();
       })
     );
@@ -72,6 +59,11 @@ export class FlashcardsSettingsTab extends PluginSettingTab {
       .onChange(async (value) => {
         this.plugin.settings.model = value;
 		reasoningEffortSetting.setDisabled(!availableReasoningModels().includes(value));
+		if (value.startsWith("deepseek-")) {
+			this.plugin.settings.apiBaseUrl = "https://api.deepseek.com";
+		} else {
+			this.plugin.settings.apiBaseUrl = "https://api.openai.com";
+		}
         await this.plugin.saveSettings();
       })
     );
