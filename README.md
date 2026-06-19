@@ -75,7 +75,7 @@ From within any open note you can run one of the following commands:
 
 I suggest using `gpt-4o` or `gpt-5.4-mini` for most use cases because they're fast and cheap.
 For more complex cards that require long answers (for example, long mathematical derivations),
-try `gpt-5.5` or `deepseek-v4-pro`, which handle complex instructions well. If you'd like a faster, lower-cost alternative, deepseek-v4-flash is also worth trying.
+try `gpt-5.5` or `deepseek-v4-pro`, which handle complex instructions well. If you'd like a faster, lower-cost alternative, `deepseek-v4-flash` is also worth trying.
 
 ## Support
 
